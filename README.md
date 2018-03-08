@@ -3,6 +3,7 @@
 All credits goes to the original vue-upload-component https://github.com/lian-yue/vue-upload-component
 
 > Vue.js file upload component
+
 > Lightweight version of vue-upload-component. Does not include CSS style and does not support chunk upload.
 
 
@@ -13,17 +14,6 @@ All credits goes to the original vue-upload-component https://github.com/lian-yu
   - [x] html4 (IE 9) compatible
   - [x] html5 compatible
   - [x] Filters for file extensions
-
-
-# Example (original)
-
-https://lian-yue.github.io/vue-upload-component/
-
-# Installation
-
-``` bash
-npm install vue-upload-component --save
-```
 
 # Documentation (original)
 
