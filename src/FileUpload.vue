@@ -401,7 +401,7 @@ export default {
               return resolve(this.add(files))
             }
             this.getEntry(item).then(function (results) {
-              files.push.apply(null, results)
+              files.push.apply(files, results)
               forEach(i + 1)
             })
           }
@@ -448,7 +448,7 @@ export default {
                   return readEntries()
                 }
                 this.getEntry(entries[i], path + entry.name + '/').then((results) => {
-                  files.push.apply(null, results)
+                  files.push.apply(files, results)
                   forEach(i + 1)
                 })
               }
