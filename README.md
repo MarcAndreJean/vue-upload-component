@@ -23,7 +23,7 @@ https://lian-yue.github.io/vue-upload-component/
 # Installation
 
 ``` bash
-npm install vue-upload-component --save
+npm install git+https://github.com/MarcAndreJean/vue-upload-component.git --save
 ```
 
 # Documentation (original)
