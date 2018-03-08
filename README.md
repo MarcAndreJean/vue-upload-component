@@ -15,6 +15,17 @@ All credits goes to the original vue-upload-component https://github.com/lian-yu
   - [x] html5 compatible
   - [x] Filters for file extensions
 
+
+# Example (original)
+
+https://lian-yue.github.io/vue-upload-component/
+
+# Installation
+
+``` bash
+npm install vue-upload-component --save
+```
+
 # Documentation (original)
 
 *This current lightweight version does not include chunk upload functionality.

@@ -1,7 +1,7 @@
 {
   "name": "vue-upload-component",
-  "description": "Vue.js file upload component, Multi-file upload, Upload directory, Drag upload, Drag the directory, Upload multiple files at the same time, html4 (IE 9), `PUT` method, Customize the filter",
-  "version": "2.8.3",
+  "description": "Vue.js file upload component, No css, Multi-file upload, Upload directory, Drag upload, Drag the directory, Upload multiple files at the same time, html4 (IE 9), `PUT` method, Customize the filter",
+  "version": "2.9.0",
   "author": "LianYue",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server",
@@ -15,7 +15,7 @@
   "jsdelivr": "dist/vue-upload-component.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lian-yue/vue-upload-component.git"
+    "url": "git@github.com:MarcAndreJean/vue-upload-component.git"
   },
   "keywords": [
     "javascript",
@@ -39,10 +39,10 @@
   "bugs": {
     "url": "https://github.com/lian-yue/vue-upload-component/issues"
   },
-  "homepage": "https://github.com/lian-yue/vue-upload-component#readme",
-  "dependencies": {
-    "uglify-es": "github:mishoo/UglifyJS2#harmony",
+  "homepage": "https://github.com/MarcAndreJean/vue-upload-component#readme",
+  "dependencies": {},
   "devDependencies": {
+    "uglify-es": "github:mishoo/UglifyJS2#harmony",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",
     "babel-loader": "^7.1.2",

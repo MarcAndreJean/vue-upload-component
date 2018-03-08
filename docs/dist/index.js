@@ -1,6 +1,6 @@
 /*!
  * Name: vue-upload-component
- * Version: 2.8.3
+ * Version: 2.9.0
  * Author: LianYue
  */
 /******/ (function(modules) { // webpackBootstrap
