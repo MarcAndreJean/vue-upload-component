@@ -1,7 +1,7 @@
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import babel from 'rollup-plugin-babel'
-import uglify from 'rollup-plugin-uglify'
+import uglify from 'uglifyjs-webpack-plugin'
 import vue from 'rollup-plugin-vue'
 import packageInfo from './package.json'
 
@@ -39,11 +39,7 @@ config.input = 'src/index.js'
 config.output.file = 'dist/vue-upload-component.js'
 config.output.name = 'VueUploadComponent'
 config.plugins.push(
-  vue({
-    autoStyles: false,
-    css: true,
-  }),
-  babel()
+  vue()
 )
 
 let configMin = baseConfig()
@@ -51,16 +47,8 @@ configMin.input = 'src/index.js'
 configMin.output.file = 'dist/vue-upload-component.min.js'
 configMin.output.name = 'VueUploadComponent'
 configMin.plugins.push(
-  vue({
-    autoStyles: false,
-    css: true,
-  }),
-  babel(),
-  uglify({
-    output: {
-      comments: /^!/,
-    }
-  })
+  vue(),
+  uglify
 )
 
 
@@ -70,11 +58,7 @@ configPart.input = 'src/index.js'
 configPart.output.file = 'dist/vue-upload-component.part.js'
 configPart.output.name = 'VueUploadComponent'
 configPart.plugins.push(
-  vue({
-    autoStyles: false,
-    css: 'dist/vue-upload-component.part.css',
-  }),
-  babel()
+  vue()
 )
 
 
