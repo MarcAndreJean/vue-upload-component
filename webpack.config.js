@@ -187,9 +187,6 @@ module.exports = merge(baseConfig(), {
         res.json({ success: true })
       }
 
-      // Chunk upload
-      app.post('/upload/chunk', bodyParser.json(), chunkUpload)
-
       app.post('/upload/post', put)
       app.put('/upload/put', put)
       app.post('/upload/delete', del)

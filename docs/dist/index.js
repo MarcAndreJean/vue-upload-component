@@ -670,8 +670,6 @@ module.exports = "## 入门开始\r\n\r\n### NPM\r\n\r\n``` bash\r\nnpm install 
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__xkeshi_image_compressor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__xkeshi_image_compressor__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_upload_component__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_upload_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_upload_component__);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 //
 //
 //
@@ -1122,7 +1120,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
           var cropper = new __WEBPACK_IMPORTED_MODULE_0_cropperjs___default.a(this.$refs.editImage, {
             autoCrop: false
           });
-          this.editFile = _extends({}, this.editFile, {
+          this.editFile = babelHelpers.extends({}, this.editFile, {
             cropper: cropper
           });
         });
@@ -1252,7 +1250,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       alert(message);
     }),
     onEditFileShow: function onEditFileShow(file) {
-      this.editFile = _extends({}, file, { show: true });
+      this.editFile = babelHelpers.extends({}, file, { show: true });
       this.$refs.upload.update(file, { error: 'edit' });
     },
     onEditorFile: function onEditorFile() {
@@ -1329,8 +1327,6 @@ module.exports = Cropper;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__InputFile_vue__ = __webpack_require__(46);
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 //
 //
 //
@@ -1566,7 +1562,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         return false;
       }
 
-      if ((typeof id === 'undefined' ? 'undefined' : _typeof(id)) === 'object') {
+      if ((typeof id === 'undefined' ? 'undefined' : babelHelpers.typeof(id)) === 'object') {
         return this.maps[id.id] || false;
       }
 
@@ -1926,7 +1922,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       // Validate extensions
       var extensions = this.extensions;
       if (extensions && (extensions.length || typeof extensions.length === 'undefined')) {
-        if ((typeof extensions === 'undefined' ? 'undefined' : _typeof(extensions)) !== 'object' || !(extensions instanceof RegExp)) {
+        if ((typeof extensions === 'undefined' ? 'undefined' : babelHelpers.typeof(extensions)) !== 'object' || !(extensions instanceof RegExp)) {
           if (typeof extensions === 'string') {
             extensions = extensions.split(',').map(function (value) {
               return value.trim();
@@ -1957,7 +1953,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       var value = void 0;
       for (var key in file.data) {
         value = file.data[key];
-        if (value && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' && typeof value.toString !== 'function') {
+        if (value && (typeof value === 'undefined' ? 'undefined' : babelHelpers.typeof(value)) === 'object' && typeof value.toString !== 'function') {
           if (value instanceof File) {
             form.append(key, value, value.name);
           } else {
@@ -2145,7 +2141,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       var input = void 0;
       for (var key in file.data) {
         value = file.data[key];
-        if (value && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' && typeof value.toString !== 'function') {
+        if (value && (typeof value === 'undefined' ? 'undefined' : babelHelpers.typeof(value)) === 'object' && typeof value.toString !== 'function') {
           value = JSON.stringify(value);
         }
         if (value !== null && value !== undefined) {
@@ -3170,8 +3166,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuex__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_upload_component__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_upload_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_upload_component__);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 //
 //
 //
@@ -3231,7 +3225,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     FileUpload: __WEBPACK_IMPORTED_MODULE_1_vue_upload_component___default.a
   },
 
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapState"])(['files'])),
+  computed: babelHelpers.extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapState"])(['files'])),
 
   methods: {
     inputUpdate: function inputUpdate(files) {
@@ -3463,16 +3457,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__router__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__i18n__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_App__ = __webpack_require__(76);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 
 
 
@@ -3485,15 +3469,14 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.config.silent = false;
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.config.devtools = true;
 
 var Renderer = function (_marked$Renderer) {
-  _inherits(Renderer, _marked$Renderer);
+  babelHelpers.inherits(Renderer, _marked$Renderer);
 
   function Renderer() {
-    _classCallCheck(this, Renderer);
-
-    return _possibleConstructorReturn(this, (Renderer.__proto__ || Object.getPrototypeOf(Renderer)).apply(this, arguments));
+    babelHelpers.classCallCheck(this, Renderer);
+    return babelHelpers.possibleConstructorReturn(this, (Renderer.__proto__ || Object.getPrototypeOf(Renderer)).apply(this, arguments));
   }
 
-  _createClass(Renderer, [{
+  babelHelpers.createClass(Renderer, [{
     key: 'heading',
     value: function heading(text, level, raw) {
       var rawName = raw.toLowerCase().replace(/([\u0000-\u002F\u003A-\u0060\u007B-\u007F]+)/g, '-').replace(/^\-+|\-+$/, '');
@@ -3517,7 +3500,6 @@ var Renderer = function (_marked$Renderer) {
       return '<h' + level + ' id="' + this.options.headerPrefix + parent + rawName + '">' + text + '</h' + level + '>\n';
     }
   }]);
-
   return Renderer;
 }(__WEBPACK_IMPORTED_MODULE_1_marked___default.a.Renderer);
 
@@ -3603,7 +3585,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.filter('toLocale', function (to) {
   return '/' + __WEBPACK_IMPORTED_MODULE_5__i18n__["a" /* default */].locale + to;
 });
 
-new __WEBPACK_IMPORTED_MODULE_0_vue___default.a(_extends({
+new __WEBPACK_IMPORTED_MODULE_0_vue___default.a(babelHelpers.extends({
   store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* default */],
   router: __WEBPACK_IMPORTED_MODULE_4__router__["a" /* default */],
   i18n: __WEBPACK_IMPORTED_MODULE_5__i18n__["a" /* default */]

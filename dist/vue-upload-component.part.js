@@ -9,24 +9,147 @@
 	(global.VueUploadComponent = factory());
 }(this, (function () { 'use strict';
 
-var InputFile = { render: function () {
+var InputFile = { render: function render() {
     var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('input', { attrs: { "type": "file", "name": _vm.$parent.name, "id": _vm.$parent.inputId || _vm.$parent.name, "accept": _vm.$parent.accept, "webkitdirectory": _vm.$parent.directory && _vm.$parent.features.directory, "directory": _vm.$parent.directory && _vm.$parent.features.directory, "multiple": _vm.$parent.multiple && _vm.$parent.features.html5 }, on: { "change": _vm.change } });
   }, staticRenderFns: [],
   methods: {
-    change(e) {
+    change: function change(e) {
       this.$destroy();
       this.$parent.addInputFile(e.target);
     }
   }
 };
 
-var FileUpload = { render: function () {
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+
+
+
+
+var asyncGenerator = function () {
+  function AwaitValue(value) {
+    this.value = value;
+  }
+
+  function AsyncGenerator(gen) {
+    var front, back;
+
+    function send(key, arg) {
+      return new Promise(function (resolve, reject) {
+        var request = {
+          key: key,
+          arg: arg,
+          resolve: resolve,
+          reject: reject,
+          next: null
+        };
+
+        if (back) {
+          back = back.next = request;
+        } else {
+          front = back = request;
+          resume(key, arg);
+        }
+      });
+    }
+
+    function resume(key, arg) {
+      try {
+        var result = gen[key](arg);
+        var value = result.value;
+
+        if (value instanceof AwaitValue) {
+          Promise.resolve(value.value).then(function (arg) {
+            resume("next", arg);
+          }, function (arg) {
+            resume("throw", arg);
+          });
+        } else {
+          settle(result.done ? "return" : "normal", result.value);
+        }
+      } catch (err) {
+        settle("throw", err);
+      }
+    }
+
+    function settle(type, value) {
+      switch (type) {
+        case "return":
+          front.resolve({
+            value: value,
+            done: true
+          });
+          break;
+
+        case "throw":
+          front.reject(value);
+          break;
+
+        default:
+          front.resolve({
+            value: value,
+            done: false
+          });
+          break;
+      }
+
+      front = front.next;
+
+      if (front) {
+        resume(front.key, front.arg);
+      } else {
+        back = null;
+      }
+    }
+
+    this._invoke = send;
+
+    if (typeof gen.return !== "function") {
+      this.return = undefined;
+    }
+  }
+
+  if (typeof Symbol === "function" && Symbol.asyncIterator) {
+    AsyncGenerator.prototype[Symbol.asyncIterator] = function () {
+      return this;
+    };
+  }
+
+  AsyncGenerator.prototype.next = function (arg) {
+    return this._invoke("next", arg);
+  };
+
+  AsyncGenerator.prototype.throw = function (arg) {
+    return this._invoke("throw", arg);
+  };
+
+  AsyncGenerator.prototype.return = function (arg) {
+    return this._invoke("return", arg);
+  };
+
+  return {
+    wrap: function (fn) {
+      return function () {
+        return new AsyncGenerator(fn.apply(this, arguments));
+      };
+    },
+    await: function (value) {
+      return new AwaitValue(value);
+    }
+  };
+}();
+
+var FileUpload = { render: function render() {
     var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('label', { class: _vm.className }, [_vm._t("default"), _vm._v(" "), _c('input-file')], 2);
   }, staticRenderFns: [],
   name: 'file-upload',
 
   components: {
-    InputFile
+    InputFile: InputFile
   },
 
   props: {
@@ -49,7 +172,7 @@ var FileUpload = { render: function () {
 
     maximum: {
       type: Number,
-      default() {
+      default: function _default() {
         return this.multiple ? 0 : 1;
       }
     },
@@ -110,7 +233,7 @@ var FileUpload = { render: function () {
     }
   },
 
-  data() {
+  data: function data() {
     return {
       files: this.value,
       features: {
@@ -127,9 +250,8 @@ var FileUpload = { render: function () {
       destroy: false
     };
   },
-
-  mounted() {
-    let input = document.createElement('input');
+  mounted: function mounted() {
+    var input = document.createElement('input');
     input.type = 'file';
     input.multiple = true;
 
@@ -157,16 +279,16 @@ var FileUpload = { render: function () {
       this.watchDrop(this.drop);
     });
   },
-
-  beforeDestroy() {
+  beforeDestroy: function beforeDestroy() {
     this.destroy = true;
     this.active = false;
   },
 
+
   computed: {
-    uploaded() {
-      let file;
-      for (let i = 0; i < this.files.length; i++) {
+    uploaded: function uploaded() {
+      var file = void 0;
+      for (var i = 0; i < this.files.length; i++) {
         file = this.files[i];
         if (file.fileObject && !file.error && !file.success) {
           return false;
@@ -174,55 +296,51 @@ var FileUpload = { render: function () {
       }
       return true;
     },
-
-    className() {
+    className: function className() {
       return [];
     }
   },
 
   watch: {
-    active(active) {
-      this.watchActive(active);
+    active: function active(_active) {
+      this.watchActive(_active);
     },
-
-    dropActive() {
+    dropActive: function dropActive() {
       if (this.$parent) {
         this.$parent.$forceUpdate();
       }
     },
-
-    drop(value) {
+    drop: function drop(value) {
       this.watchDrop(value);
     },
-
-    value(files) {
+    value: function value(files) {
       if (this.files === files) {
         return;
       }
       this.files = files;
 
-      let oldMaps = this.maps;
+      var oldMaps = this.maps;
 
       // Maps
       this.maps = {};
-      for (let i = 0; i < this.files.length; i++) {
-        let file = this.files[i];
+      for (var i = 0; i < this.files.length; i++) {
+        var file = this.files[i];
         this.maps[file.id] = file;
       }
 
       // add, update
-      for (let key in this.maps) {
-        let newFile = this.maps[key];
-        let oldFile = oldMaps[key];
+      for (var key in this.maps) {
+        var newFile = this.maps[key];
+        var oldFile = oldMaps[key];
         if (newFile !== oldFile) {
           this.emitFile(newFile, oldFile);
         }
       }
 
       // Delete
-      for (let key in oldMaps) {
-        if (!this.maps[key]) {
-          this.emitFile(undefined, oldMaps[key]);
+      for (var _key in oldMaps) {
+        if (!this.maps[_key]) {
+          this.emitFile(undefined, oldMaps[_key]);
         }
       }
     }
@@ -231,55 +349,59 @@ var FileUpload = { render: function () {
   methods: {
 
     // Clear - Empty the file list
-    clear() {
+    clear: function clear() {
       if (this.files.length) {
-        let files = this.files;
+        var files = this.files;
         this.files = [];
 
         this.maps = {};
 
         this.emitInput();
-        for (let i = 0; i < files.length; i++) {
+        for (var i = 0; i < files.length; i++) {
           this.emitFile(undefined, files[i]);
         }
       }
       return true;
     },
 
+
     // Get - Get file by Id
-    get(id) {
+    get: function get$$1(id) {
       if (!id) {
         return false;
       }
 
-      if (typeof id === 'object') {
+      if ((typeof id === 'undefined' ? 'undefined' : _typeof(id)) === 'object') {
         return this.maps[id.id] || false;
       }
 
       return this.maps[id] || false;
     },
 
+
     // Add file - Generate new Id if not provided
-    add(_files, index = this.addIndex) {
-      let files = _files;
-      let isArray = files instanceof Array;
+    add: function add(_files) {
+      var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.addIndex;
+
+      var files = _files;
+      var isArray = files instanceof Array;
 
       if (!isArray) {
         files = [files];
       }
 
-      let addFiles = [];
-      for (let i = 0; i < files.length; i++) {
-        let file = files[i];
+      var addFiles = [];
+      for (var i = 0; i < files.length; i++) {
+        var file = files[i];
         if (this.features.html5 && file instanceof Blob) {
           file = {
-            file,
+            file: file,
             size: file.size,
             name: file.webkitRelativePath || file.relativePath || file.name || 'unknown',
             type: file.type
           };
         }
-        let fileObject = false;
+        var fileObject = false;
         if (file.fileObject === false) {
           // false
         } else if (file.fileObject) {
@@ -340,7 +462,7 @@ var FileUpload = { render: function () {
         this.clear();
       }
 
-      let newFiles;
+      var newFiles = void 0;
       if (index === true || index === 0) {
         newFiles = addFiles.concat(this.files);
       } else if (index) {
@@ -352,49 +474,53 @@ var FileUpload = { render: function () {
 
       this.files = newFiles;
 
-      for (let i = 0; i < addFiles.length; i++) {
-        let file = addFiles[i];
-        this.maps[file.id] = file;
+      for (var _i = 0; _i < addFiles.length; _i++) {
+        var _file2 = addFiles[_i];
+        this.maps[_file2.id] = _file2;
       }
 
       this.emitInput();
-      for (let i = 0; i < addFiles.length; i++) {
-        this.emitFile(addFiles[i], undefined);
+      for (var _i2 = 0; _i2 < addFiles.length; _i2++) {
+        this.emitFile(addFiles[_i2], undefined);
       }
 
       return isArray ? addFiles : addFiles[0];
     },
 
+
     // InputFile - Add the file selected by <input type = "file"> to the upload list
-    addInputFile(el) {
-      let files = [];
+    addInputFile: function addInputFile(el) {
+      var files = [];
       if (el.files) {
-        for (let i = 0; i < el.files.length; i++) {
-          let file = el.files[i];
+        for (var i = 0; i < el.files.length; i++) {
+          var file = el.files[i];
           files.push({
             size: file.size,
             name: file.webkitRelativePath || file.relativePath || file.name,
             type: file.type,
-            file,
-            el
+            file: file,
+            el: el
           });
         }
       } else {
         files.push({
           name: el.value.replace(/^.*?([^\/\\\r\n]+)$/, '$1'),
-          el
+          el: el
         });
       }
       return this.add(files);
     },
 
+
     // DataTransfer - Add files that are dragged or pasted into the upload list
-    addDataTransfer(dataTransfer) {
-      let files = [];
+    addDataTransfer: function addDataTransfer(dataTransfer) {
+      var _this = this;
+
+      var files = [];
       if (dataTransfer.items && dataTransfer.items.length) {
-        let items = [];
-        for (let i = 0; i < dataTransfer.items.length; i++) {
-          let item = dataTransfer.items[i];
+        var items = [];
+        for (var i = 0; i < dataTransfer.items.length; i++) {
+          var item = dataTransfer.items[i];
           if (item.getAsEntry) {
             item = item.getAsEntry() || item.getAsFile();
           } else if (item.webkitGetAsEntry) {
@@ -407,13 +533,13 @@ var FileUpload = { render: function () {
           }
         }
 
-        return new Promise((resolve, reject) => {
-          let forEach = i => {
-            let item = items[i];
-            if (!item || this.maximum > 0 && files.length >= this.maximum) {
-              return resolve(this.add(files));
+        return new Promise(function (resolve, reject) {
+          var forEach = function forEach(i) {
+            var item = items[i];
+            if (!item || _this.maximum > 0 && files.length >= _this.maximum) {
+              return resolve(_this.add(files));
             }
-            this.getEntry(item).then(function (results) {
+            _this.getEntry(item).then(function (results) {
               files.push.apply(files, results);
               forEach(i + 1);
             });
@@ -423,8 +549,8 @@ var FileUpload = { render: function () {
       }
 
       if (dataTransfer.files.length) {
-        for (let i = 0; i < dataTransfer.files.length; i++) {
-          files.push(dataTransfer.files[i]);
+        for (var _i3 = 0; _i3 < dataTransfer.files.length; _i3++) {
+          files.push(dataTransfer.files[_i3]);
           if (this.maximum > 0 && files.length >= this.maximum) {
             break;
           }
@@ -434,31 +560,34 @@ var FileUpload = { render: function () {
 
       return Promise.resolve([]);
     },
+    getEntry: function getEntry(entry) {
+      var _this2 = this;
 
-    getEntry(entry, path = '') {
-      return new Promise((resolve, reject) => {
+      var path = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+      return new Promise(function (resolve, reject) {
         if (entry.isFile) {
           entry.file(function (file) {
             resolve([{
               size: file.size,
               name: path + file.name,
               type: file.type,
-              file
+              file: file
             }]);
           });
-        } else if (entry.isDirectory && this.dropDirectory) {
-          let files = [];
-          let dirReader = entry.createReader();
-          let readEntries = () => {
-            dirReader.readEntries(entries => {
-              let forEach = i => {
-                if (!entries[i] && i === 0 || this.maximum > 0 && files.length >= this.maximum) {
+        } else if (entry.isDirectory && _this2.dropDirectory) {
+          var files = [];
+          var dirReader = entry.createReader();
+          var readEntries = function readEntries() {
+            dirReader.readEntries(function (entries) {
+              var forEach = function forEach(i) {
+                if (!entries[i] && i === 0 || _this2.maximum > 0 && files.length >= _this2.maximum) {
                   return resolve(files);
                 }
                 if (!entries[i]) {
                   return readEntries();
                 }
-                this.getEntry(entries[i], path + entry.name + '/').then(results => {
+                _this2.getEntry(entries[i], path + entry.name + '/').then(function (results) {
                   files.push.apply(files, results);
                   forEach(i + 1);
                 });
@@ -473,15 +602,16 @@ var FileUpload = { render: function () {
       });
     },
 
+
     // Remove a file object
-    remove(id) {
-      let file = this.get(id);
+    remove: function remove(id) {
+      var file = this.get(id);
       if (file) {
         if (this.emitFilter(undefined, file)) {
           return false;
         }
-        let files = this.files.concat([]);
-        let index = files.indexOf(file);
+        var files = this.files.concat([]);
+        var index = files.indexOf(file);
         if (index === -1) {
           console.error('remove', file);
           return false;
@@ -497,11 +627,12 @@ var FileUpload = { render: function () {
       return file;
     },
 
+
     // Update a file object
-    update(id, data) {
-      let file = this.get(id);
+    update: function update(id, data) {
+      var file = this.get(id);
       if (file) {
-        let newFile = Object.assign({}, file, data);
+        var newFile = Object.assign({}, file, data);
         if (file.fileObject && file.active && !newFile.active && !newFile.error && !newFile.success) {
           newFile.error = 'abort';
         }
@@ -510,8 +641,8 @@ var FileUpload = { render: function () {
           return false;
         }
 
-        let files = this.files.concat([]);
-        let index = files.indexOf(file);
+        var files = this.files.concat([]);
+        var index = files.indexOf(file);
         if (index === -1) {
           console.error('update', file);
           return false;
@@ -528,31 +659,31 @@ var FileUpload = { render: function () {
       }
       return false;
     },
-
-    emitFilter(newFile, oldFile) {
-      let isPrevent = false;
+    emitFilter: function emitFilter(newFile, oldFile) {
+      var isPrevent = false;
       this.$emit('input-filter', newFile, oldFile, function () {
         isPrevent = true;
         return isPrevent;
       });
       return isPrevent;
     },
-
-    emitFile(newFile, oldFile) {
+    emitFile: function emitFile(newFile, oldFile) {
       this.$emit('input-file', newFile, oldFile);
       if (newFile && newFile.fileObject && newFile.active && (!oldFile || !oldFile.active)) {
         this.uploading++;
         this.$nextTick(function () {
-          setTimeout(() => {
-            this.upload(newFile).then(() => {
+          var _this3 = this;
+
+          setTimeout(function () {
+            _this3.upload(newFile).then(function () {
               if (newFile && newFile.fileObject) {
-                this.update(newFile, {
+                _this3.update(newFile, {
                   active: false,
                   success: !newFile.error
                 });
               }
-            }).catch(e => {
-              this.update(newFile, {
+            }).catch(function (e) {
+              _this3.update(newFile, {
                 active: false,
                 success: false,
                 error: e.code || e.error || e.message || e
@@ -568,14 +699,14 @@ var FileUpload = { render: function () {
         this.watchActive(true);
       }
     },
-
-    emitInput() {
+    emitInput: function emitInput() {
       this.$emit('input', this.files);
     },
 
+
     // Validate then upload file
-    upload(id) {
-      let file = this.get(id);
+    upload: function upload(id) {
+      var file = this.get(id);
 
       // Validate file
       if (!file) {
@@ -598,11 +729,15 @@ var FileUpload = { render: function () {
       }
 
       // Validate extensions
-      let extensions = this.extensions;
+      var extensions = this.extensions;
       if (extensions && (extensions.length || typeof extensions.length === 'undefined')) {
-        if (typeof extensions !== 'object' || !(extensions instanceof RegExp)) {
+        if ((typeof extensions === 'undefined' ? 'undefined' : _typeof(extensions)) !== 'object' || !(extensions instanceof RegExp)) {
           if (typeof extensions === 'string') {
-            extensions = extensions.split(',').map(value => value.trim()).filter(value => value);
+            extensions = extensions.split(',').map(function (value) {
+              return value.trim();
+            }).filter(function (value) {
+              return value;
+            });
           }
           extensions = new RegExp('\\.(' + extensions.join('|').replace(/\./g, '\\.') + ')$', 'i');
         }
@@ -622,13 +757,12 @@ var FileUpload = { render: function () {
       }
       return this.uploadHtml4(file);
     },
-
-    uploadHtml5(file) {
-      let form = new window.FormData();
-      let value;
-      for (let key in file.data) {
+    uploadHtml5: function uploadHtml5(file) {
+      var form = new window.FormData();
+      var value = void 0;
+      for (var key in file.data) {
         value = file.data[key];
-        if (value && typeof value === 'object' && typeof value.toString !== 'function') {
+        if (value && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' && typeof value.toString !== 'function') {
           if (value instanceof File) {
             form.append(key, value, value.name);
           } else {
@@ -639,38 +773,41 @@ var FileUpload = { render: function () {
         }
       }
       form.append(this.name, file.file, file.file.filename || file.name);
-      let xhr = new XMLHttpRequest();
+      var xhr = new XMLHttpRequest();
       xhr.open('POST', file.postAction);
       return this.uploadXhr(xhr, file, form);
     },
 
-    // HTML5 uploadXMLHttpRequest object
-    uploadXhr(xhr, _file, body) {
-      let file = _file;
-      let speedTime = 0;
-      let speedLoaded = 0;
 
-      xhr.upload.onprogress = e => {
-        file = this.get(file);
+    // HTML5 uploadXMLHttpRequest object
+    uploadXhr: function uploadXhr(xhr, _file, body) {
+      var _this4 = this;
+
+      var file = _file;
+      var speedTime = 0;
+      var speedLoaded = 0;
+
+      xhr.upload.onprogress = function (e) {
+        file = _this4.get(file);
         if (!e.lengthComputable || !file || !file.fileObject || !file.active) {
           return;
         }
 
-        let speedTime2 = Math.round(Date.now() / 1000);
+        var speedTime2 = Math.round(Date.now() / 1000);
         if (speedTime2 === speedTime) {
           return;
         }
         speedTime = speedTime2;
 
-        file = this.update(file, {
+        file = _this4.update(file, {
           progress: (e.loaded / e.total * 100).toFixed(2),
           speed: e.loaded - speedLoaded
         });
         speedLoaded = e.loaded;
       };
 
-      let interval = setInterval(() => {
-        file = this.get(file);
+      var interval = setInterval(function () {
+        file = _this4.get(file);
         if (file && file.fileObject && !file.success && !file.error && file.active) {
           return;
         }
@@ -686,9 +823,9 @@ var FileUpload = { render: function () {
         } catch (e) {}
       }, 100);
 
-      return new Promise((resolve, reject) => {
-        let complete;
-        let fn = e => {
+      return new Promise(function (resolve, reject) {
+        var complete = void 0;
+        var fn = function fn(e) {
           if (complete) {
             return;
           }
@@ -698,7 +835,7 @@ var FileUpload = { render: function () {
             interval = false;
           }
 
-          file = this.get(file);
+          file = _this4.get(file);
 
           if (!file) {
             return reject('not_exists');
@@ -720,7 +857,7 @@ var FileUpload = { render: function () {
             return resolve(file);
           }
 
-          let data = {};
+          var data = {};
 
           switch (e.type) {
             case 'timeout':
@@ -747,7 +884,7 @@ var FileUpload = { render: function () {
           }
 
           if (xhr.responseText) {
-            let contentType = xhr.getResponseHeader('Content-Type');
+            var contentType = xhr.getResponseHeader('Content-Type');
             if (contentType && contentType.indexOf('/json') !== -1) {
               data.response = JSON.parse(xhr.responseText);
             } else {
@@ -755,7 +892,7 @@ var FileUpload = { render: function () {
             }
           }
 
-          file = this.update(file, data);
+          file = _this4.update(file, data);
 
           if (file.error) {
             return reject(file.error);
@@ -774,31 +911,32 @@ var FileUpload = { render: function () {
         }
 
         // headers
-        for (let key in file.headers) {
+        for (var key in file.headers) {
           xhr.setRequestHeader(key, file.headers[key]);
         }
 
-        file = this.update(file, { xhr });
+        file = _this4.update(file, { xhr: xhr });
 
         xhr.send(body);
       });
     },
+    uploadHtml4: function uploadHtml4(_file) {
+      var _this5 = this;
 
-    uploadHtml4(_file) {
-      let file = _file;
-      let onKeydown = function (e) {
+      var file = _file;
+      var onKeydown = function onKeydown(e) {
         if (e.keyCode === 27) {
           e.preventDefault();
         }
       };
 
-      let iframe = document.createElement('iframe');
+      var iframe = document.createElement('iframe');
       iframe.id = 'upload-iframe-' + file.id;
       iframe.name = 'upload-iframe-' + file.id;
       iframe.src = 'about:blank';
       iframe.setAttribute('style', 'width:1px;height:1px;top:-999em;position:absolute; margin-top:-999em;');
 
-      let form = document.createElement('form');
+      var form = document.createElement('form');
 
       form.action = file.postAction;
 
@@ -808,11 +946,11 @@ var FileUpload = { render: function () {
       form.setAttribute('target', 'upload-iframe-' + file.id);
       form.setAttribute('enctype', 'multipart/form-data');
 
-      let value;
-      let input;
-      for (let key in file.data) {
+      var value = void 0;
+      var input = void 0;
+      for (var key in file.data) {
         value = file.data[key];
-        if (value && typeof value === 'object' && typeof value.toString !== 'function') {
+        if (value && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' && typeof value.toString !== 'function') {
           value = JSON.stringify(value);
         }
         if (value !== null && value !== undefined) {
@@ -827,8 +965,8 @@ var FileUpload = { render: function () {
 
       document.body.appendChild(iframe).appendChild(form);
 
-      let getResponseData = function () {
-        let doc;
+      var getResponseData = function getResponseData() {
+        var doc = void 0;
         try {
           if (iframe.contentWindow) {
             doc = iframe.contentWindow.document;
@@ -847,17 +985,17 @@ var FileUpload = { render: function () {
         return null;
       };
 
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          file = this.update(file, { iframe });
+      return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+          file = _this5.update(file, { iframe: iframe });
 
           // Validate file
           if (!file) {
             return reject('not_exists');
           }
 
-          let interval = setInterval(() => {
-            file = this.get(file);
+          var interval = setInterval(function () {
+            file = _this5.get(file);
             if (file && file.fileObject && !file.success && !file.error && file.active) {
               return;
             }
@@ -870,8 +1008,8 @@ var FileUpload = { render: function () {
             iframe.onabort({ type: file ? 'abort' : 'not_exists' });
           }, 100);
 
-          let complete;
-          let fn = e => {
+          var complete = void 0;
+          var fn = function fn(e) {
             if (complete) {
               return;
             }
@@ -884,7 +1022,7 @@ var FileUpload = { render: function () {
 
             document.body.removeEventListener('keydown', onKeydown);
 
-            file = this.get(file);
+            file = _this5.get(file);
 
             if (!file) {
               return reject('not_exists');
@@ -906,8 +1044,8 @@ var FileUpload = { render: function () {
               return resolve(file);
             }
 
-            let response = getResponseData();
-            let data = {};
+            var response = getResponseData();
+            var data = {};
             switch (e.type) {
               case 'abort':
                 data.error = 'abort';
@@ -940,7 +1078,7 @@ var FileUpload = { render: function () {
               data.response = response;
             }
 
-            file = this.update(file, data);
+            file = _this5.update(file, data);
 
             if (file.error) {
               return reject(file.error);
@@ -965,10 +1103,9 @@ var FileUpload = { render: function () {
         return res;
       });
     },
-
-    watchActive(active) {
-      let file;
-      let index = 0;
+    watchActive: function watchActive(active) {
+      var file = void 0;
+      var index = 0;
       while (file = this.files[index]) {
         index++;
         if (!file.fileObject) {
@@ -990,9 +1127,8 @@ var FileUpload = { render: function () {
         this.active = false;
       }
     },
-
-    watchDrop(_el) {
-      let el = _el;
+    watchDrop: function watchDrop(_el) {
+      var el = _el;
       if (!this.features.drop) {
         return;
       }
@@ -1025,35 +1161,32 @@ var FileUpload = { render: function () {
         this.dropElement.addEventListener('drop', this.onDrop, false);
       }
     },
-
-    onDragenter(e) {
+    onDragenter: function onDragenter(e) {
       e.preventDefault();
       if (!this.dropActive) {
         this.dropActive = true;
       }
     },
-
-    onDragleave(e) {
+    onDragleave: function onDragleave(e) {
       e.preventDefault();
       if (e.target.nodeName === 'HTML' || e.screenX === 0 && e.screenY === 0 && !e.fromElement && e.offsetX <= 0) {
         this.dropActive = false;
       }
     },
-
-    onDragover(e) {
+    onDragover: function onDragover(e) {
       e.preventDefault();
     },
-
-    onDocumentDrop() {
+    onDocumentDrop: function onDocumentDrop() {
       this.dropActive = false;
     },
-
-    onDrop(e) {
+    onDrop: function onDrop(e) {
       e.preventDefault();
       this.addDataTransfer(e.dataTransfer);
     }
   }
 };
+
+
 
 var FileUpload$1 = Object.freeze({
 	default: FileUpload

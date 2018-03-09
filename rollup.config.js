@@ -50,7 +50,7 @@ configMin.output.name = 'VueUploadComponent'
 configMin.plugins.push(
   vue(),
   babel(),
-  uglify
+  uglify()
 )
 
 
