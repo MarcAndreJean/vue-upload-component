@@ -1,8 +1,9 @@
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
-import uglify from 'uglifyjs-webpack-plugin'
+import uglify from 'rollup-plugin-uglify'
 import vue from 'rollup-plugin-vue'
 import packageInfo from './package.json'
+import babel from 'rollup-plugin-babel'
 
 
 // const isDev = process.env.NODE_ENV === 'development'
@@ -38,7 +39,8 @@ config.input = 'src/index.js'
 config.output.file = 'dist/vue-upload-component.js'
 config.output.name = 'VueUploadComponent'
 config.plugins.push(
-  vue()
+  vue(),
+  babel()
 )
 
 let configMin = baseConfig()
@@ -47,6 +49,7 @@ configMin.output.file = 'dist/vue-upload-component.min.js'
 configMin.output.name = 'VueUploadComponent'
 configMin.plugins.push(
   vue(),
+  babel(),
   uglify
 )
 
@@ -57,7 +60,8 @@ configPart.input = 'src/index.js'
 configPart.output.file = 'dist/vue-upload-component.part.js'
 configPart.output.name = 'VueUploadComponent'
 configPart.plugins.push(
-  vue()
+  vue(),
+  babel()
 )
 
 

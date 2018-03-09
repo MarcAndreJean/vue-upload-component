@@ -42,7 +42,6 @@
   "homepage": "https://github.com/MarcAndreJean/vue-upload-component#readme",
   "dependencies": {},
   "devDependencies": {
-    "uglify-es": "github:mishoo/UglifyJS2#harmony",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",
     "babel-loader": "^7.1.2",

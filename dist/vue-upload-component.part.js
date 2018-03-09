@@ -9,7 +9,9 @@
 	(global.VueUploadComponent = factory());
 }(this, (function () { 'use strict';
 
-var InputFile = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('input',{attrs:{"type":"file","name":_vm.$parent.name,"id":_vm.$parent.inputId || _vm.$parent.name,"accept":_vm.$parent.accept,"webkitdirectory":_vm.$parent.directory && _vm.$parent.features.directory,"directory":_vm.$parent.directory && _vm.$parent.features.directory,"multiple":_vm.$parent.multiple && _vm.$parent.features.html5},on:{"change":_vm.change}})},staticRenderFns: [],
+var InputFile = { render: function () {
+    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('input', { attrs: { "type": "file", "name": _vm.$parent.name, "id": _vm.$parent.inputId || _vm.$parent.name, "accept": _vm.$parent.accept, "webkitdirectory": _vm.$parent.directory && _vm.$parent.features.directory, "directory": _vm.$parent.directory && _vm.$parent.features.directory, "multiple": _vm.$parent.multiple && _vm.$parent.features.html5 }, on: { "change": _vm.change } });
+  }, staticRenderFns: [],
   methods: {
     change(e) {
       this.$destroy();
@@ -18,93 +20,94 @@ var InputFile = {render: function(){var _vm=this;var _h=_vm.$createElement;var _
   }
 };
 
-var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('label',{class:_vm.className},[_vm._t("default"),_vm._v(" "),_c('input-file')],2)},staticRenderFns: [],
+var FileUpload = { render: function () {
+    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('label', { class: _vm.className }, [_vm._t("default"), _vm._v(" "), _c('input-file')], 2);
+  }, staticRenderFns: [],
   name: 'file-upload',
 
   components: {
-    InputFile,
+    InputFile
   },
 
   props: {
     inputId: {
-      type: String,
+      type: String
     },
 
     name: {
       type: String,
-      default: 'file',
+      default: 'file'
     },
 
     accept: {
-      type: String,
+      type: String
     },
 
     multiple: {
-      type: Boolean,
+      type: Boolean
     },
 
     maximum: {
       type: Number,
       default() {
-        return this.multiple ? 0 : 1
+        return this.multiple ? 0 : 1;
       }
     },
 
     addIndex: {
-      type: [Boolean, Number],
+      type: [Boolean, Number]
     },
 
     directory: {
-      type: Boolean,
+      type: Boolean
     },
 
     postAction: {
-      type: String,
+      type: String
     },
 
     headers: {
       type: Object,
-      default: Object,
+      default: Object
     },
 
     data: {
       type: Object,
-      default: Object,
+      default: Object
     },
 
     timeout: {
       type: Number,
-      default: 0,
+      default: 0
     },
 
-
     drop: {
-      default: false,
+      default: false
     },
 
     dropDirectory: {
       type: Boolean,
-      default: true,
+      default: true
     },
 
     size: {
       type: Number,
-      default: 0,
+      default: 0
     },
 
     extensions: {
-      default: Array,
+      default: Array
     },
 
     value: {
       type: Array,
-      default: Array,
+      default: Array
     },
 
     thread: {
       type: Number,
-      default: 1,
-    },
+      default: 1
+    }
   },
 
   data() {
@@ -113,7 +116,7 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
       features: {
         html5: true,
         directory: false,
-        drag: false,
+        drag: false
       },
 
       active: false,
@@ -121,8 +124,8 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
 
       uploading: 0,
 
-      destroy: false,
-    }
+      destroy: false
+    };
   },
 
   mounted() {
@@ -166,17 +169,16 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
       for (let i = 0; i < this.files.length; i++) {
         file = this.files[i];
         if (file.fileObject && !file.error && !file.success) {
-          return false
+          return false;
         }
       }
-      return true
+      return true;
     },
 
     className() {
-      return []
+      return [];
     }
   },
-
 
   watch: {
     active(active) {
@@ -195,7 +197,7 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
 
     value(files) {
       if (this.files === files) {
-        return
+        return;
       }
       this.files = files;
 
@@ -223,7 +225,7 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
           this.emitFile(undefined, oldMaps[key]);
         }
       }
-    },
+    }
   },
 
   methods: {
@@ -241,20 +243,20 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
           this.emitFile(undefined, files[i]);
         }
       }
-      return true
+      return true;
     },
 
     // Get - Get file by Id
     get(id) {
       if (!id) {
-        return false
+        return false;
       }
 
       if (typeof id === 'object') {
-        return this.maps[id.id] || false
+        return this.maps[id.id] || false;
       }
 
-      return this.maps[id] || false
+      return this.maps[id] || false;
     },
 
     // Add file - Generate new Id if not provided
@@ -274,7 +276,7 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
             file,
             size: file.size,
             name: file.webkitRelativePath || file.relativePath || file.name || 'unknown',
-            type: file.type,
+            type: file.type
           };
         }
         let fileObject = false;
@@ -298,12 +300,12 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
             success: false,
             putAction: this.putAction,
             postAction: this.postAction,
-            timeout: this.timeout,
+            timeout: this.timeout
           }, file, {
             response: {},
 
             progress: '0.00',
-            speed: 0,
+            speed: 0
           });
 
           file.data = Object.assign({}, this.data, file.data ? file.data : {});
@@ -316,22 +318,22 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
         }
 
         if (this.emitFilter(file, undefined)) {
-          continue
+          continue;
         }
 
-        if (this.maximum > 1 && (addFiles.length + this.files.length) >= this.maximum) {
-          break
+        if (this.maximum > 1 && addFiles.length + this.files.length >= this.maximum) {
+          break;
         }
 
         addFiles.push(file);
 
         if (this.maximum === 1) {
-          break
+          break;
         }
       }
 
       if (!addFiles.length) {
-        return false
+        return false;
       }
 
       if (this.maximum === 1) {
@@ -360,7 +362,7 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
         this.emitFile(addFiles[i], undefined);
       }
 
-      return isArray ? addFiles : addFiles[0]
+      return isArray ? addFiles : addFiles[0];
     },
 
     // InputFile - Add the file selected by <input type = "file"> to the upload list
@@ -380,10 +382,10 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
       } else {
         files.push({
           name: el.value.replace(/^.*?([^\/\\\r\n]+)$/, '$1'),
-          el,
+          el
         });
       }
-      return this.add(files)
+      return this.add(files);
     },
 
     // DataTransfer - Add files that are dragged or pasted into the upload list
@@ -406,10 +408,10 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
         }
 
         return new Promise((resolve, reject) => {
-          let forEach = (i) => {
+          let forEach = i => {
             let item = items[i];
-            if (!item || (this.maximum > 0 && files.length >= this.maximum)) {
-              return resolve(this.add(files))
+            if (!item || this.maximum > 0 && files.length >= this.maximum) {
+              return resolve(this.add(files));
             }
             this.getEntry(item).then(function (results) {
               files.push.apply(files, results);
@@ -417,48 +419,46 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
             });
           };
           forEach(0);
-        })
+        });
       }
 
       if (dataTransfer.files.length) {
         for (let i = 0; i < dataTransfer.files.length; i++) {
           files.push(dataTransfer.files[i]);
           if (this.maximum > 0 && files.length >= this.maximum) {
-            break
+            break;
           }
         }
-        return Promise.resolve(this.add(files))
+        return Promise.resolve(this.add(files));
       }
 
-      return Promise.resolve([])
+      return Promise.resolve([]);
     },
 
     getEntry(entry, path = '') {
       return new Promise((resolve, reject) => {
         if (entry.isFile) {
           entry.file(function (file) {
-            resolve([
-              {
-                size: file.size,
-                name: path + file.name,
-                type: file.type,
-                file,
-              }
-            ]);
+            resolve([{
+              size: file.size,
+              name: path + file.name,
+              type: file.type,
+              file
+            }]);
           });
         } else if (entry.isDirectory && this.dropDirectory) {
           let files = [];
           let dirReader = entry.createReader();
           let readEntries = () => {
-            dirReader.readEntries((entries) => {
-              let forEach = (i) => {
-                if ((!entries[i] && i === 0) || (this.maximum > 0 && files.length >= this.maximum)) {
-                  return resolve(files)
+            dirReader.readEntries(entries => {
+              let forEach = i => {
+                if (!entries[i] && i === 0 || this.maximum > 0 && files.length >= this.maximum) {
+                  return resolve(files);
                 }
                 if (!entries[i]) {
-                  return readEntries()
+                  return readEntries();
                 }
-                this.getEntry(entries[i], path + entry.name + '/').then((results) => {
+                this.getEntry(entries[i], path + entry.name + '/').then(results => {
                   files.push.apply(files, results);
                   forEach(i + 1);
                 });
@@ -470,7 +470,7 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
         } else {
           resolve([]);
         }
-      })
+      });
     },
 
     // Remove a file object
@@ -478,13 +478,13 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
       let file = this.get(id);
       if (file) {
         if (this.emitFilter(undefined, file)) {
-          return false
+          return false;
         }
         let files = this.files.concat([]);
         let index = files.indexOf(file);
         if (index === -1) {
           console.error('remove', file);
-          return false
+          return false;
         }
         files.splice(index, 1);
         this.files = files;
@@ -494,7 +494,7 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
         this.emitInput();
         this.emitFile(undefined, file);
       }
-      return file
+      return file;
     },
 
     // Update a file object
@@ -507,14 +507,14 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
         }
 
         if (this.emitFilter(newFile, file)) {
-          return false
+          return false;
         }
 
         let files = this.files.concat([]);
         let index = files.indexOf(file);
         if (index === -1) {
           console.error('update', file);
-          return false
+          return false;
         }
         files.splice(index, 1, newFile);
         this.files = files;
@@ -524,18 +524,18 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
 
         this.emitInput();
         this.emitFile(newFile, file);
-        return newFile
+        return newFile;
       }
-      return false
+      return false;
     },
 
     emitFilter(newFile, oldFile) {
       let isPrevent = false;
       this.$emit('input-filter', newFile, oldFile, function () {
         isPrevent = true;
-        return isPrevent
+        return isPrevent;
       });
-      return isPrevent
+      return isPrevent;
     },
 
     emitFile(newFile, oldFile) {
@@ -551,7 +551,7 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
                   success: !newFile.error
                 });
               }
-            }).catch((e) => {
+            }).catch(e => {
               this.update(newFile, {
                 active: false,
                 success: false,
@@ -573,29 +573,28 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
       this.$emit('input', this.files);
     },
 
-
     // Validate then upload file
     upload(id) {
       let file = this.get(id);
 
       // Validate file
       if (!file) {
-        return Promise.reject('not_exists')
+        return Promise.reject('not_exists');
       }
 
       // Validate file object data
       if (!file.fileObject) {
-        return Promise.reject('file_object')
+        return Promise.reject('file_object');
       }
 
       // Reject if there is an error
       if (file.error) {
-        return Promise.reject(file.error)
+        return Promise.reject(file.error);
       }
 
       // If the file is already downloaded, don't download-it again
       if (file.success) {
-        return Promise.resolve(file)
+        return Promise.resolve(file);
       }
 
       // Validate extensions
@@ -608,20 +607,20 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
           extensions = new RegExp('\\.(' + extensions.join('|').replace(/\./g, '\\.') + ')$', 'i');
         }
         if (file.name.search(extensions) === -1) {
-          return Promise.reject('extension')
+          return Promise.reject('extension');
         }
       }
 
       // Validate size
       if (this.size > 0 && file.size >= 0 && file.size > this.size) {
-        return Promise.reject('size')
+        return Promise.reject('size');
       }
 
       // Upload with Html5 specs or Html4 if not supported
       if (this.features.html5) {
-        return this.uploadHtml5(file)
+        return this.uploadHtml5(file);
       }
-      return this.uploadHtml4(file)
+      return this.uploadHtml4(file);
     },
 
     uploadHtml5(file) {
@@ -642,7 +641,7 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
       form.append(this.name, file.file, file.file.filename || file.name);
       let xhr = new XMLHttpRequest();
       xhr.open('POST', file.postAction);
-      return this.uploadXhr(xhr, file, form)
+      return this.uploadXhr(xhr, file, form);
     },
 
     // HTML5 uploadXMLHttpRequest object
@@ -651,21 +650,21 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
       let speedTime = 0;
       let speedLoaded = 0;
 
-      xhr.upload.onprogress = (e) => {
+      xhr.upload.onprogress = e => {
         file = this.get(file);
         if (!e.lengthComputable || !file || !file.fileObject || !file.active) {
-          return
+          return;
         }
 
         let speedTime2 = Math.round(Date.now() / 1000);
         if (speedTime2 === speedTime) {
-          return
+          return;
         }
         speedTime = speedTime2;
 
         file = this.update(file, {
           progress: (e.loaded / e.total * 100).toFixed(2),
-          speed: e.loaded - speedLoaded,
+          speed: e.loaded - speedLoaded
         });
         speedLoaded = e.loaded;
       };
@@ -673,7 +672,7 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
       let interval = setInterval(() => {
         file = this.get(file);
         if (file && file.fileObject && !file.success && !file.error && file.active) {
-          return
+          return;
         }
 
         if (interval) {
@@ -684,15 +683,14 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
         try {
           xhr.abort();
           xhr.timeout = 1;
-        } catch (e) {
-        }
+        } catch (e) {}
       }, 100);
 
       return new Promise((resolve, reject) => {
         let complete;
-        let fn = (e) => {
+        let fn = e => {
           if (complete) {
-            return
+            return;
           }
           complete = true;
           if (interval) {
@@ -703,24 +701,23 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
           file = this.get(file);
 
           if (!file) {
-            return reject('not_exists')
+            return reject('not_exists');
           }
 
           if (!file.fileObject) {
-            return reject('file_object')
+            return reject('file_object');
           }
 
           if (file.error) {
-            return reject(file.error)
+            return reject(file.error);
           }
 
           if (!file.active) {
-            return reject('abort')
+            return reject('abort');
           }
 
-
           if (file.success) {
-            return resolve(file)
+            return resolve(file);
           }
 
           let data = {};
@@ -729,7 +726,7 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
             case 'timeout':
             case 'abort':
               data.error = e.type;
-              break
+              break;
             case 'error':
               if (!xhr.status) {
                 data.error = 'network';
@@ -738,7 +735,7 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
               } else if (xhr.status >= 400) {
                 data.error = 'denied';
               }
-              break
+              break;
             default:
               if (xhr.status >= 500) {
                 data.error = 'server';
@@ -761,10 +758,10 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
           file = this.update(file, data);
 
           if (file.error) {
-            return reject(file.error)
+            return reject(file.error);
           }
 
-          return resolve(file)
+          return resolve(file);
         };
 
         xhr.onload = fn;
@@ -784,7 +781,7 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
         file = this.update(file, { xhr });
 
         xhr.send(body);
-      })
+      });
     },
 
     uploadHtml4(_file) {
@@ -801,13 +798,11 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
       iframe.src = 'about:blank';
       iframe.setAttribute('style', 'width:1px;height:1px;top:-999em;position:absolute; margin-top:-999em;');
 
-
       let form = document.createElement('form');
 
       form.action = file.postAction;
 
       form.name = 'upload-form-' + file.id;
-
 
       form.setAttribute('method', 'POST');
       form.setAttribute('target', 'upload-iframe-' + file.id);
@@ -838,8 +833,7 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
           if (iframe.contentWindow) {
             doc = iframe.contentWindow.document;
           }
-        } catch (err) {
-        }
+        } catch (err) {}
         if (!doc) {
           try {
             doc = iframe.contentDocument ? iframe.contentDocument : iframe.document;
@@ -848,9 +842,9 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
           }
         }
         if (doc && doc.body) {
-          return doc.body.innerHTML
+          return doc.body.innerHTML;
         }
-        return null
+        return null;
       };
 
       return new Promise((resolve, reject) => {
@@ -859,13 +853,13 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
 
           // Validate file
           if (!file) {
-            return reject('not_exists')
+            return reject('not_exists');
           }
 
           let interval = setInterval(() => {
             file = this.get(file);
             if (file && file.fileObject && !file.success && !file.error && file.active) {
-              return
+              return;
             }
 
             if (interval) {
@@ -876,14 +870,12 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
             iframe.onabort({ type: file ? 'abort' : 'not_exists' });
           }, 100);
 
-
           let complete;
-          let fn = (e) => {
+          let fn = e => {
             if (complete) {
-              return
+              return;
             }
             complete = true;
-
 
             if (interval) {
               clearInterval(interval);
@@ -895,23 +887,23 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
             file = this.get(file);
 
             if (!file) {
-              return reject('not_exists')
+              return reject('not_exists');
             }
 
             if (!file.fileObject) {
-              return reject('file_object')
+              return reject('file_object');
             }
 
             if (file.error) {
-              return reject(file.error)
+              return reject(file.error);
             }
 
             if (!file.active) {
-              return reject('abort')
+              return reject('abort');
             }
 
             if (file.success) {
-              return resolve(file)
+              return resolve(file);
             }
 
             let response = getResponseData();
@@ -919,7 +911,7 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
             switch (e.type) {
               case 'abort':
                 data.error = 'abort';
-                break
+                break;
               case 'error':
                 if (file.error) {
                   data.error = file.error;
@@ -928,7 +920,7 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
                 } else {
                   data.error = 'denied';
                 }
-                break
+                break;
               default:
                 if (file.error) {
                   data.error = file.error;
@@ -943,8 +935,7 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
               if (response && response.substr(0, 1) === '{' && response.substr(response.length - 1, 1) === '}') {
                 try {
                   response = JSON.parse(response);
-                } catch (err) {
-                }
+                } catch (err) {}
               }
               data.response = response;
             }
@@ -952,10 +943,10 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
             file = this.update(file, data);
 
             if (file.error) {
-              return reject(file.error)
+              return reject(file.error);
             }
 
-            return resolve(file)
+            return resolve(file);
           };
 
           iframe.onload = fn;
@@ -968,23 +959,23 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
         }, 50);
       }).then(function (res) {
         iframe.parentNode && iframe.parentNode.removeChild(iframe);
-        return res
+        return res;
       }).catch(function (res) {
         iframe.parentNode && iframe.parentNode.removeChild(iframe);
-        return res
-      })
+        return res;
+      });
     },
 
     watchActive(active) {
       let file;
       let index = 0;
-      while ((file = this.files[index])) {
+      while (file = this.files[index]) {
         index++;
         if (!file.fileObject) {
           // Do nothing
         } else if (active && !this.destroy) {
-          if (this.uploading >= this.thread || (this.uploading && !this.features.html5)) {
-            break
+          if (this.uploading >= this.thread || this.uploading && !this.features.html5) {
+            break;
           }
           if (!file.active && !file.error && !file.success) {
             this.update(file, { active: true });
@@ -1003,7 +994,7 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
     watchDrop(_el) {
       let el = _el;
       if (!this.features.drop) {
-        return
+        return;
       }
 
       if (this.dropElement) {
@@ -1013,8 +1004,7 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
           document.removeEventListener('drop', this.onDocumentDrop, false);
           this.dropElement.removeEventListener('dragover', this.onDragover, false);
           this.dropElement.removeEventListener('drop', this.onDrop, false);
-        } catch (e) {
-        }
+        } catch (e) {}
       }
 
       if (!el) {
@@ -1045,7 +1035,7 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
 
     onDragleave(e) {
       e.preventDefault();
-      if (e.target.nodeName === 'HTML' || (e.screenX === 0 && e.screenY === 0 && !e.fromElement && e.offsetX <= 0)) {
+      if (e.target.nodeName === 'HTML' || e.screenX === 0 && e.screenY === 0 && !e.fromElement && e.offsetX <= 0) {
         this.dropActive = false;
       }
     },
@@ -1061,10 +1051,9 @@ var FileUpload = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
     onDrop(e) {
       e.preventDefault();
       this.addDataTransfer(e.dataTransfer);
-    },
+    }
   }
 };
-
 
 var FileUpload$1 = Object.freeze({
 	default: FileUpload
